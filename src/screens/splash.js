@@ -5,13 +5,15 @@ import {
     StyleSheet,
     View,
     Text,
-    Image
+    Image,
+    StatusBar
 } from 'react-native';
 
 export default class Splash extends Component{
    
    constructor(props){ 
     super(props); 
+    StatusBar.setHidden(true);
     this.state={ 
       isVisible : true, 
     } 
@@ -22,7 +24,7 @@ export default class Splash extends Component{
  
     var that = this; 
     setTimeout(function(){ 
-      that.props.navigation.navigate('Home');
+      that.props.navigation.navigate('Onboarding');
     }, 3000);  
   }
  
@@ -37,7 +39,7 @@ export default class Splash extends Component{
                 <View style={styles.SplashScreen_RootView}> 
                     <View style={styles.SplashScreen_ChildView}> 
                         {/* Put all your components Image and Text here inside Child view which you want to show in Splash Screen. */}
-                        <Image source={{uri: 'https://reactnativecode.com/wp-content/uploads/2018/01/welcome.png'}}
+                        <Image source={{uri: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/496ecb14589707.562865d064f9e.png'}}
                         style={{width:'100%', height: '100%', resizeMode: 'contain'}} />
                     </View>            
                  </View>
@@ -60,7 +62,7 @@ const styles = StyleSheet.create(
     {
         justifyContent: 'center',
         flex:1,
-        margin: 10,
+        margin: 0,
         position: 'absolute',
         width: '100%',
         height: '100%',
@@ -73,7 +75,7 @@ const styles = StyleSheet.create(
         alignItems: 'center',
         backgroundColor: '#00BCD4',
         flex:1,
-        margin: 20,
+        margin: 0,
     } 
 });
  

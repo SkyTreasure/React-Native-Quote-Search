@@ -11,6 +11,7 @@ import Profile from './src/screens/profile';
 import Modal from './src/screens/Modal';
 import Drawer from './src/components/Drawer';
 import Splash from './src/screens/splash'
+import OnBoarding from './src/screens/onboarding'
 
 // Stack navigation for Settings and Profile screens
 const SettingsTab = StackNavigator({
@@ -80,6 +81,9 @@ export default StackNavigator({
   },
   Splash:{
     screen: Splash
+  },
+  Onboarding:{
+    screen: OnBoarding
   }
 }, {
   initialRouteName: 'Splash',
