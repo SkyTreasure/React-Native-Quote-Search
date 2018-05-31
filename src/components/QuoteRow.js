@@ -8,11 +8,12 @@ import {
   View                // Container component
 } from 'react-native';
 import Dimensions from 'Dimensions';
+import { withNavigation } from 'react-navigation';
 
 // Detect screen size to calculate row height
 const screen = Dimensions.get('window');
 
-export default class QuoteRow extends Component{
+class QuoteRow extends Component{
     render(){
         const {movie, onPress} = this.props;
         const {title, rating, image} = movie;
@@ -89,3 +90,5 @@ const styles = StyleSheet.create({
     fontSize: 16,                       // Smaller font size
   },
 });
+
+export default withNavigation(QuoteRow);

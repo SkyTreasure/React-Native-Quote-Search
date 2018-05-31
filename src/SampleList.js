@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 import QuoteRow from '../src/components/QuoteRow';
+import { withNavigation } from 'react-navigation';
 
 const demoData = [
   {
@@ -83,7 +84,7 @@ const demoData = [
 ];
 
 
-export default class SampleList extends Component {
+class SampleList extends Component {
 
   /**
    * Store the data for ListView
@@ -101,6 +102,7 @@ export default class SampleList extends Component {
    * Call _fetchData after component has been mounted
    */
   componentDidMount() {
+     
       this._fetchData();
   }
 
@@ -124,37 +126,54 @@ export default class SampleList extends Component {
       return (
         <QuoteRow
         // Pass movie object
-        movie={movie}
-        // Pass a function to handle row presses
+        movie={movie} 
         onPress={()=>{
-          // Navigate to a separate movie detail screen
-          this.props.navigator.push({
-            name: 'movie',
-            movie: movie,
-          });
+          this.props.navigation.navigate('SearchScreen', {
+              quote: movie.title,
+              author: movie.title,
+            });
         }}
+        //  onPress={this.NavigateBack.bind(this, movie)}
+        // onPress={()=>{
+        //   this.NavigateBack.bind(this, movie)
+        // }}
       />
+      
+      
     );
   }
+  
+   NavigateBack=(movie)=>
+    {
+      //Sending the JSON ListView Selected Item Value On Next Activity.
+      this.props.navigation.navigate('SearchScreen', {
+              quote: movie.plot,
+              author: movie.title,
+            });
+       
+    }
 
   /**
    * Renders the list
    */
   render() {
+   
     return (
-         <ListView
-            // Data source from state
-            dataSource={this.state.dataSource}
-            // Row renderer method
-            renderRow={this._renderRow}
-            // Refresh the list on pull down
+         <ListView 
+            dataSource={this.state.dataSource} 
+            renderRow={this._renderRow} 
             refreshControl={
-            <RefreshControl
+              <RefreshControl
                 refreshing={this.state.isRefreshing}
                 onRefresh={this._fetchData}
-            />
+               /> 
             }
       />
+      
+     
+ 
     )
   }
 }
+
+export default withNavigation(SampleList);
