@@ -13,6 +13,7 @@ import Drawer from './src/components/Drawer';
 import Splash from './src/screens/splash'
 import OnBoarding from './src/screens/onboarding'
 import QuoteListing from './src/screens/quotelisting'
+import SearchScreen from './src/screens/search'
 
 // Stack navigation for Settings and Profile screens
 const SettingsTab = StackNavigator({
@@ -88,9 +89,12 @@ export default StackNavigator({
   },
   QuoteListing:{
     screen: QuoteListing
+  },
+  SearchScreen:{
+    screen: SearchScreen
   }
 }, {
-  initialRouteName: 'QuoteListing',
+  initialRouteName: 'SearchScreen',
   // In modal mode screen slides up from the bottom
   mode: 'modal',
   // No headers for modals. Otherwise we'd have two headers on the screen, one for stack, one for modal.
