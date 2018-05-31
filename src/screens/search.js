@@ -11,9 +11,40 @@ import {
     Button,
     StatusBar
 } from 'react-native';
+import Tags from '../components/Tags';
 
-var vquote="";
-var vauthor="";
+var vquote = "";
+var vauthor = "";
+
+const TAGS = [
+    '#love',
+    '#instagood',
+    '#photooftheday',
+    '#beautiful',
+    '#fashion',
+    '#happy',
+    '#tbt',
+    '#cute',
+    '#followme',
+    '#like4like',
+    '#follow',
+    '#followme',
+    '#picoftheday',
+    '#me',
+    '#selfie',
+    '#summer',
+    '#instadaily',
+    '#photooftheday',
+    '#friends',
+    '#girl',
+    '#fun',
+    '#style',
+    '#instalike',
+    '#food',
+    '#family',
+    '#tagsforlikes',
+    '#igers',
+];
 
 export default class SearchScreen extends Component {
     constructor(props) {
@@ -21,23 +52,23 @@ export default class SearchScreen extends Component {
         this.state = {
             isLoading: false,
             text: '',
-            quote: props.navigation.getParam('quote',''),
-            author: props.navigation.getParam('author',''),
+            quote: '',
+            author: '',
             logger: '',
             hashtags: []
         }
         this.arrayHolder = ['inspire', 'management', 'sports', 'life', 'love', 'funny', 'art']
     }
 
-    componentWillMount() {
-        const { navigation } = this.props; 
+    componentDidMount(prevProps, prevState, snapshot) {
+        const { navigation } = this.props;
         this.setState({
-            quote: navigation.getParam('quote',''),
-            author: navigation.getParam('author','')
+            quote: navigation.getParam('quote', 'A'),
+            author: navigation.getParam('author', 'B')
         })
     }
 
- 
+
 
     GetListViewItem(fruit_name) {
         Alert.alert(fruit_name);
@@ -49,7 +80,7 @@ export default class SearchScreen extends Component {
             return fetch("http://quotes.rest/qod.json?category=" + this.state.text.toLowerCase())
                 .then((response) => response.json())
                 .then((responseJson) => {
-                    console.log(responseJson.contents.quotes[0].quote); 
+                    console.log(responseJson.contents.quotes[0].quote);
                     this.setState({
                         isLoading: false,
                         quote: responseJson.contents.quotes[0].quote,
@@ -73,10 +104,7 @@ export default class SearchScreen extends Component {
 
 
     render() {
-         const { navigation } = this.props; 
-          vquote = navigation.getParam('quote','');
-          vauthor = navigation.getParam('author', '');
-        
+
         if (this.state.isLoading) {
             return (
                 <View style={{ flex: 1, paddingTop: 20 }}>
@@ -101,11 +129,12 @@ export default class SearchScreen extends Component {
                     underlineColorAndroid='transparent'
                     placeholder="inspire,art,love,management,sports,life,love,funny,art"
                     />
-
+                <Tags
+                    tags={TAGS}
+                    onPressAddNewTag={() => { } } // do nothing for now
+                    />
                 <Text style={styles.Quote}>{this.state.quote}</Text>
                 <Text style={styles.Quote}>{this.state.author}</Text>
-                <Text style={styles.Quote}>{vquote}</Text>
-                <Text style={styles.Quote}>{vauthor}</Text>
                 <Button
                     onPress={() => this.props.navigation.navigate('QuoteListing') }
                     title="View More Quotes "
@@ -119,8 +148,8 @@ const styles = StyleSheet.create({
 
     MainContainer: {
 
-        flex: 1,
-        margin: 7,
+        flex: 1, 
+         backgroundColor: "#7ec0ee"
 
     },
 
