@@ -60,10 +60,9 @@ export default class Tag extends PureComponent {
         onLayout={this.onLayout}
       >
         <TouchableOpacity
-          style={this.getTagStyle()}
-          onPress={this.onPress}
+          style={this.getTagStyle()}          
         >
-          <Icon name="ios-close-circle-outline" size={16} color="#FFF" />
+          <Icon name="ios-close-circle-outline" size={20} color="#FFF" onPress={this.onPress} />
           <Text>{' '}</Text>
           <Text style={styles.title}>{title}</Text>
         </TouchableOpacity>

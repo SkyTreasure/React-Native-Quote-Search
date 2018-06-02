@@ -13,11 +13,12 @@ import {
     StatusBar
 } from 'react-native';
 import Tags from '../components/Tags';
+import NewTagModal from '../components/NewTagModal';
 
 var vquote = "";
 var vauthor = "";
 
-const TAGS = [ 
+const TAGS = [
     '#photooftheday',
     '#friends',
     '#girl',
@@ -30,6 +31,8 @@ const TAGS = [
     '#igers',
 ];
 
+
+
 export default class SearchScreen extends Component {
     constructor(props) {
         super(props);
@@ -39,10 +42,28 @@ export default class SearchScreen extends Component {
             quote: '',
             author: '',
             logger: '',
-            hashtags: []
+            hashtags: [],
+            modalVisible: false,
         }
         this.arrayHolder = ['inspire', 'management', 'sports', 'life', 'love', 'funny', 'art']
     }
+
+
+
+    // Reference Tags component
+    _tagsComponent: ?Tags;
+
+    openModal = (): void => {
+        this.setState({ modalVisible: true });
+    };
+
+    closeModal = (): void => {
+        this.setState({ modalVisible: false });
+    };
+
+    onSubmitNewTag = (tag: string) => {
+        this._tagsComponent && this._tagsComponent.onSubmitNewTag(tag);
+    };
 
     componentDidMount(prevProps, prevState, snapshot) {
         const { navigation } = this.props;
@@ -88,6 +109,7 @@ export default class SearchScreen extends Component {
 
 
     render() {
+        const { modalVisible } = this.state;
 
         if (this.state.isLoading) {
             return (
@@ -104,7 +126,15 @@ export default class SearchScreen extends Component {
                     <StatusBar
                         backgroundColor="blue"
                         barStyle="light-content"
+                        hidden={true}
                     />
+
+                    <NewTagModal
+                        visible={this.state.modalVisible}
+                        onSubmit={this.onSubmitNewTag}
+                        onClose={this.closeModal}
+                    />
+
                     <Text style={styles.Title}>Quote Search App</Text>
                     <TextInput
                         style={styles.TextInputStyleClass}
@@ -115,8 +145,9 @@ export default class SearchScreen extends Component {
                         placeholder="inspire,art,love,management,sports,life,love,funny,art"
                     />
                     <Tags
+                        ref={component => this._tagsComponent = component }
                         tags={TAGS}
-                        onPressAddNewTag={() => { }} // do nothing for now
+                        onPressAddNewTag={this.openModal}
                     />
                     <Text style={styles.Quote}>{this.state.quote}</Text>
                     <Text style={styles.Quote}>{this.state.author}</Text>

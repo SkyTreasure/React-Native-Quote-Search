@@ -201,6 +201,24 @@ export default class Tags extends PureComponent {
         });
     };
 
+    // Add new tag to the state
+    onSubmitNewTag = (title: string): void => {
+        // Remove tag if it already exists to re-add it to the bottom of the list
+        const existingTag = this.state.tags.find((tag: TagObject) => tag.title === title);
+        if (existingTag) {
+            this.removeTag(existingTag);
+        }
+        // Add new tag to the state
+        this.setState((state: State) => {
+            return {
+                tags: [
+                    ...state.tags,
+                    { title },
+                ],
+            }
+        });
+    };
+
     render() {
         const { tags } = this.state;
         return (
