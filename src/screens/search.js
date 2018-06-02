@@ -9,6 +9,7 @@ import {
     ActivityIndicator,
     Alert,
     Button,
+    ScrollView,
     StatusBar
 } from 'react-native';
 import Tags from '../components/Tags';
@@ -16,24 +17,7 @@ import Tags from '../components/Tags';
 var vquote = "";
 var vauthor = "";
 
-const TAGS = [
-    '#love',
-    '#instagood',
-    '#photooftheday',
-    '#beautiful',
-    '#fashion',
-    '#happy',
-    '#tbt',
-    '#cute',
-    '#followme',
-    '#like4like',
-    '#follow',
-    '#followme',
-    '#picoftheday',
-    '#me',
-    '#selfie',
-    '#summer',
-    '#instadaily',
+const TAGS = [ 
     '#photooftheday',
     '#friends',
     '#girl',
@@ -116,30 +100,33 @@ export default class SearchScreen extends Component {
         return (
 
             <View style={styles.MainContainer}>
-                <StatusBar
-                    backgroundColor="blue"
-                    barStyle="light-content"
+                <ScrollView>
+                    <StatusBar
+                        backgroundColor="blue"
+                        barStyle="light-content"
                     />
-                <Text style={styles.Title}>Quote Search App</Text>
-                <TextInput
-                    style={styles.TextInputStyleClass}
-                    onChangeText={(text) => this.setState({ text: text }) }
-                    value={this.state.text}
-                    onSubmitEditing={(text) => this.SearchFilterFunction() }
-                    underlineColorAndroid='transparent'
-                    placeholder="inspire,art,love,management,sports,life,love,funny,art"
+                    <Text style={styles.Title}>Quote Search App</Text>
+                    <TextInput
+                        style={styles.TextInputStyleClass}
+                        onChangeText={(text) => this.setState({ text: text })}
+                        value={this.state.text}
+                        onSubmitEditing={(text) => this.SearchFilterFunction()}
+                        underlineColorAndroid='transparent'
+                        placeholder="inspire,art,love,management,sports,life,love,funny,art"
                     />
-                <Tags
-                    tags={TAGS}
-                    onPressAddNewTag={() => { } } // do nothing for now
+                    <Tags
+                        tags={TAGS}
+                        onPressAddNewTag={() => { }} // do nothing for now
                     />
-                <Text style={styles.Quote}>{this.state.quote}</Text>
-                <Text style={styles.Quote}>{this.state.author}</Text>
-                <Button
-                    onPress={() => this.props.navigation.navigate('QuoteListing') }
-                    title="View More Quotes "
+                    <Text style={styles.Quote}>{this.state.quote}</Text>
+                    <Text style={styles.Quote}>{this.state.author}</Text>
+                    <Button
+                        onPress={() => this.props.navigation.navigate('QuoteListing')}
+                        title="View More Quotes "
                     />
+                </ScrollView>
             </View>
+
         );
     }
 }
@@ -148,8 +135,8 @@ const styles = StyleSheet.create({
 
     MainContainer: {
 
-        flex: 1, 
-         backgroundColor: "#7ec0ee"
+        flex: 1,
+        backgroundColor: "#7ec0ee"
 
     },
 
